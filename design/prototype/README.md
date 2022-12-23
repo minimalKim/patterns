@@ -31,7 +31,7 @@
 - 프로토타입 체인의 최상위 객체는 `Object.prototype`이다.
   - `Object.prototype`의 `[[Prototype]]` 내부 슬롯 값(=프로토타입 객체)은 null이다.
 
-#### `__proto__` 접근자 프로퍼티를 통해 `[[Prototype]]` 내부 슬롯 값 (=프로토타입 객체)에 접근하는 이유
+## `__proto__` 접근자 프로퍼티를 통해 `[[Prototype]]` 내부 슬롯 값 (=프로토타입 객체)에 접근하는 이유
 
 - 상호 참조에 의해 프로토타입 체인이 생성되는 것을 방지하기 위해서이다.
 
@@ -45,15 +45,48 @@
   parent.__proto__ = child; // Uncaught TypeError: Cyclic __proto__ value   at set __proto__ [as __proto__] (<anonymous>)
   ```
 
-#### `__proto__` 접근자 프로퍼티의 사용을 권장하지 않는 경우
+## `__proto__` 접근자 프로퍼티의 사용을 권장하지 않는 경우
 
 - ES5까지는 비표준 (IE11 미만은 지원 되지 않음)
 - Object.prototype를 상속받지 않는 객체를 생성할 수 있기 때문에, (ex. 직접 상속) `__proto__` 접근자 프로퍼티를 참조할 수 없는 객체 존재
+
   - `Object.getPrototypeOf()`, `Object.setPrototypeOf()` 메서드를 사용하는 것을 권장
 
-#### 객체 생성 방식과 프로토타입 객체의 결정
+  ```js
+  const obj = Object.create(null);
+  const a = { name: "kim" };
+  obj.__proto__ = a; // {__proto__: {name: 'kim'}} 동적 프로퍼티가 생성
+  Object.setPrototypeOf(obj, b); // { [[Prototype]]: Object } prototype 링크가 생성
+  ```
 
-##### 객체 생성 방식
+## 함수객체의 prototype 프로퍼티
+
+- 함수 객체만이 `prototype` 프로퍼티를 가진다.
+
+  - 함수의 프로토타입 객체는 생성자 함수가 생성할 인스턴스의 프로토타입을 가리킨다.
+  - (non-constructor가 아닌) 함수의 프로토타입 객체는 constructor로 자기 자신을 가진다.
+  - 일반 객체는 `__proto__` 접근자 프로퍼티를 가진다.
+
+  ```js
+  function Person() {
+    this.name = "kim";
+  }
+
+  Person.prototype; // { constructor: ƒ Person() }
+
+  const min = new Person();
+  min; // Person { name: 'kim' }
+
+  // 함수의 프로토타입 객체는 생성자 함수가 생성할 인스턴스의 프로토타입을 가리킨다.
+  Person.prototype === min.__proto__; // true
+
+  // non-constructor가 아닌) 함수의 프로토타입 객체는 constructor로 자기 자신을 가진다.
+  Person.prototype.constructor === Person; // true
+  ```
+
+## 객체 생성 방식과 프로토타입 객체의 결정
+
+### 객체 생성 방식
 
 1. 객체 리터럴
 2. Object 생성자 함수
