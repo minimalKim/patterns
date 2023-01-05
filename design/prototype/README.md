@@ -59,7 +59,7 @@
   Object.setPrototypeOf(obj, b); // { [[Prototype]]: Object } prototype 링크가 생성
   ```
 
-## 함수객체의 prototype 프로퍼티
+## 함수 객체의 prototype 프로퍼티
 
 - 함수 객체만이 `prototype` 프로퍼티를 가진다.
 
