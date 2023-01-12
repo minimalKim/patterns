@@ -52,7 +52,7 @@
 
 #### export
 
-- default 키워드를 사용하는 경우 var, let, const 키워드는 사용 불가 하다.
+- default 키워드를 사용하는 경우 var, let, const 키워드는 사용 불가하다.
 
 ```ts
 export default function (x: number) {
