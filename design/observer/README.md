@@ -133,8 +133,8 @@ model.todos = ["todo A"]; // render todo A
 1. Observer패턴과 Pub-Sub패턴의 차이는?
 
 - 중간에 Message Broker 또는 Event Bus가 존재하는지 여부
-  - Observer패턴은 Observer와 Subject가 서로를 인지하지만 Pub-Sub패턴의 경우 서로를 전혀 몰라도 상관없습니다.
-  - Observer패턴에 비해 Pub-Sub패턴이 더 결합도가 낮습니다.
+  - Observer패턴은 Observer와 Subject가 서로를 인지하지만 Pub-Sub패턴의 경우 서로를 전혀 몰라도 상관없다.
+  - Observer패턴에 비해 Pub-Sub패턴이 더 결합도가 낮다.
 
 참고
 

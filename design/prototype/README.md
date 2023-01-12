@@ -56,7 +56,7 @@
   const obj = Object.create(null);
   const a = { name: "kim" };
   obj.__proto__ = a; // {__proto__: {name: 'kim'}} 동적 프로퍼티가 생성
-  Object.setPrototypeOf(obj, b); // { [[Prototype]]: Object } prototype 링크가 생성
+  Object.setPrototypeOf(obj, a); // { [[Prototype]]: Object } prototype 링크가 생성
   ```
 
 ## 함수 객체의 prototype 프로퍼티
