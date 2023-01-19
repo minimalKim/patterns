@@ -7,9 +7,12 @@ type Pipeline<T> = {
   execute: (context: T) => Promise<void>;
 };
 
+// middleware 함수들을 인수로 받는다.
 function Pipeline<T>(...middlewares: Middleware<T>[]): Pipeline<T> {
   const stack: Middleware<T>[] = middlewares;
+  // 순차적으로 실행해야 할 middleware 함수들
 
+  // middleware 함수 추가
   const push: Pipeline<T>["push"] = (...middlewares) => {
     stack.push(...middlewares);
   };
@@ -18,6 +21,7 @@ function Pipeline<T>(...middlewares: Middleware<T>[]): Pipeline<T> {
     let prevIndex = -1;
 
     const runner = async (index: number): Promise<void> => {
+      console.log(index);
       if (index === prevIndex) {
         throw new Error("next() called multiple times");
       }
@@ -28,11 +32,13 @@ function Pipeline<T>(...middlewares: Middleware<T>[]): Pipeline<T> {
 
       if (middleware) {
         await middleware(context, () => {
+          // 재귀 함수 선언
           return runner(index + 1);
         });
       }
     };
 
+    // 재귀 함수 호출
     await runner(0);
   };
 
@@ -43,16 +49,16 @@ type Context = {
   value: number;
 };
 
-// create a middleware pipeline
+// middleware pipeline 생성
 const pipeline = Pipeline<Context>(
-  // with an initial middleware
+  // 기본 middleware 함수
   (ctx, next) => {
     console.log(ctx);
     next();
   }
 );
 
-// add some more middlewares
+// middleware 함수 추가
 pipeline.push(
   (ctx, next) => {
     ctx.value = ctx.value + 21;
@@ -64,18 +70,17 @@ pipeline.push(
   }
 );
 
-// add the terminating middleware
+// next가 없는 middleware 함수 추가
 pipeline.push((ctx, next) => {
   console.log(ctx);
   // not calling `next()`
 });
 
-// add another one for fun ¯\_(ツ)_/¯
+// 아래 middleware는 호출 되지 않음
 pipeline.push((ctx, next) => {
   console.log("this will not be logged");
 });
 
-// execute the pipeline with initial value of `ctx`
 pipeline.execute({ value: 0 });
 // { value: 0 }
 // { value: 42 }

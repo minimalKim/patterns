@@ -36,7 +36,7 @@
 - 관찰자 패턴은 1개의 Observable(Subject) 대해 N개의 Observer(Listener)가 존재
 - 중재자 패턴은 M개의 Observable(Subject)와 N개의 Observer(Listener) 사이에서 1개의 Mediator와 통해 통신 (브로커 또는 메시지 브로커 또는 이벤트 버스를 통해 송신자와 수신자가 소통하는 발행 - 구독 패턴에 가까움)
 
-https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FTHaNB%2FbtqBtGF6tbR%2F6nSNAnpnb7Mw2LqF6aibV0%2Fimg.png
+![img](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FTHaNB%2FbtqBtGF6tbR%2F6nSNAnpnb7Mw2LqF6aibV0%2Fimg.png)
 
 ## 관련
 
@@ -44,6 +44,8 @@ https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog
 
 - Express는 자체적인 최소한의 기능을 갖춘 라우팅 및 미들웨어 웹 프레임워크이다.
 - 미들웨어 함수는 request와 respond 주기 사이에서, 요청 오브젝트(req), 응답 오브젝트 (res), 그 다음의 미들웨어 함수 대한 액세스 권한을 갖는 함수이다.
+- 클라이언트에게서 request가 오고, 해당 request에 대한 response 보내기 위해 응답하기 전 거쳐가는 함수들
+  - 순차적으로 처리되기 때문에 순서가 중요하다.
 
 ```js
 const middleware = (req, res, next) => {
