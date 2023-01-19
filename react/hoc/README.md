@@ -96,19 +96,20 @@
   const StyledButton = withStyles(Button)
   ```
 
-- 가독성
-- 여래개의 HOC로 wrapping 되는 경우, 트리가 깊어진다.
-- 어떤 HOC가 어떤 props와 연관이 있는지 파악하기 어렵다.
+- 나쁜 가독성
 
-```jsx
-<withAuth>
-  <withLayout>
-    <withLogging>
-      <Component />
-    </withLogging>
-  </withLayout>
-</withAuth>
-```
+  - 여래개의 HOC로 wrapping 되는 경우, 트리가 깊어진다.
+  - 어떤 HOC가 어떤 props와 연관이 있는지 파악하기 어렵다.
+
+  ```jsx
+  <withAuth>
+    <withLayout>
+      <withLogging>
+        <Component />
+      </withLogging>
+    </withLayout>
+  </withAuth>
+  ```
 
 ## 특징
 
@@ -163,3 +164,4 @@ const TickTock = createReactClass({
 - https://jeonghwan-kim.github.io/2022/05/28/react-high-order-component
 - https://ko.reactjs.org/docs/pure-render-mixin.html
 - https://itmining.tistory.com/124
+- https://blue-boy.tistory.com/247
