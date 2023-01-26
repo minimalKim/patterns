@@ -20,7 +20,7 @@ function App() {
 
 - 또는 react 에서 children은 props.children를 통해 접근이 가능하므로, 아래와 같이도 작성이 가능하다.
 
-  - 다만, 해당 패턴은 안티패턴이라는 의견이 있으므로 주의 [참고](https://americanexpress.io/faccs-are-an-antipattern/)
+  - 다만, 해당 패턴은 안티패턴이라는 의견이 있으므로 주의 [(참고)](https://americanexpress.io/faccs-are-an-antipattern/)
 
 ```jsx
 function Component(props) {
