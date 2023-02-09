@@ -61,6 +61,7 @@
 
   - 하위 컴포넌트들은 상위 컴포넌트에 의해 control 된다.
   - react 에서는 상위 컴포넌트를 Context.Provider로 wrapping하여, 여러 하위 컴포넌트들에게 props를 제공할 수 있다.
+  - 결론적으로, 외부에서 상위 컴포넌트 뿐만 아니라 하위 컴포넌트들에게도 접근할 수 있도록 개방한다.
 
 - 작성한 소스: https://stackblitz.com/edit/react-ts-8uzf89?file=App.tsx
 
