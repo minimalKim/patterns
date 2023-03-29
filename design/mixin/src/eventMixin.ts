@@ -50,7 +50,7 @@ class Menu {
   }
 }
 
-class MenuWithEvent extends EventMixin(Menu) {
+class MenuWithEvent extends AnotherMixin(EventMixin(Menu)) {
   choose(value: string) {
     // select 이벤트를 구독
     this.trigger("select", value);

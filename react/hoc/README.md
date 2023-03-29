@@ -92,8 +92,8 @@
     };
   }
 
-  const Button = () = <button style={{ color: 'red' }}>Click me!</button>
-  const StyledButton = withStyles(Button)
+  const Button = () => <button style={{ color: "red" }}>Click me!</button>;
+  const StyledButton = withStyles(Button);
   ```
 
 - 나쁜 가독성

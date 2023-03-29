@@ -58,7 +58,7 @@
    // 메서드 복사
    Object.assign(User.prototype, sayHiMixin);
 
-   new User("Min").sayHi(); // Hello Min!
+   const mini = new User("Min").sayHi(); // Hello Min!
    ```
 
    메서드의 super가 `[[HomeObject]].[[Prototype]]`내에서 부모 메서드를 찾기 때문에, 메서드는 `User.[[Prototype]]`이 아닌 `sayHiMixin.[[Prototype]]`을 검색

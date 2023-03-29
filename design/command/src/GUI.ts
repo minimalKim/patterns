@@ -4,7 +4,10 @@
   }
 
   class Command implements ICommand {
+    // sender
     app: Application;
+
+    // receiver
     editor: Editor;
     backup: string = "";
 
@@ -41,6 +44,8 @@
     execute() {
       this.saveBackup();
       this.app.clipboard = this.editor.getSelection();
+
+      // receiver
       this.editor.deleteSelection();
       return true;
     }
@@ -50,6 +55,8 @@
   class PasteCommand extends Command {
     execute() {
       this.saveBackup();
+
+      // receiver
       this.editor.replaceSelection(this.app.clipboard);
       return true;
     }
