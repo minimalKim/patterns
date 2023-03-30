@@ -58,6 +58,8 @@
 
 Core Web Vitals는 웹 페이지의 세 가지 핵심 성능 지표에 초점을 맞춘 반면, User-centric performance metrics는 사용자가 웹 페이지를 사용하는 동안 경험하는 시간과 관련된 다양한 지표를 측정하며, 두 지표 모두 웹 페이지의 전반적인 성능을 개선하는 데 도움이 된다.
 
+[참고](https://web.dev/user-centric-performance-metrics/)
+
 ## 리소스 순서 처리
 
 - 이러한 지표들을 잘 최적화하기 위해서는 각 지표들과 연관된 각기 다른 리소스들이 어떤 관계를 갖는지를 잘 이해해야한다.
