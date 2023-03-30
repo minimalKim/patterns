@@ -295,6 +295,115 @@ Core Web Vitals는 웹 페이지의 세 가지 핵심 성능 지표에 초점을
 - 스크립트는 문서에서 어느 위치에 포함되었는지 그리고 async, defer, blocking(일반적인 스크립트 포함 방법) 적용 여부에 따라 다른 우선 순위를 갖는다. 첫 번째 이미지(또는 문서의 초기 이미지) 전에 요청된 Blocking스크립트는 첫 번째 이미지 다음에 요청된 Blocking스크립트보다 높은 우선순위를 갖는다. async, defer, injected 스크립트는 문서의 어디에 포함되던 가장 낮은 순위를 갖는다. 따라서 async, defer 속성을 적절히 사용하여 여러 스크립트간의 우선순위를 지정할 수 있다.
 - 뷰포트에 표시되는 이미지는 뷰포트에 보이지 않는 이미지보다 우선순위가 높다. 이는 BTF이미지보다 ATF에 우선순위를 두는 것에 도움이 된다.
 
+## 이상적인 리소스 로딩 순서
+
+### 1. 3P 가 없는 경우
+
+#### 개선 전 로딩 순서
+
+<table>
+<thead>
+<tr>
+<th>브라우저 메인스레드 이벤트 순서</th>
+<th></th>
+<th>리소스의 네트워크 요청 순서</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>HTML을 파싱함</td>
+<td>인라이닝 처리된 작은 1P 스크립트</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>인라이닝 처리된 작은 1P 스크립트 실행</td>
+<td>인라이닝된 중요 CSS (외부 리소스일 경우 Preload)</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>인라이닝된 중요 폰트 (외부 리소스일 경우 Preconnect)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FCP 리소스들을 파싱함 (중요 CSS, 폰트)</td>
+<td>LCP 이미지 (외부 리소스일 경우 Preconnect)</td>
+<td>4</td>
+</tr>
+<tr>
+<td><strong>First Contentful Paint (FCP)</strong></td>
+<td></td>
+<td>폰트들 (인라이닝 된 폰트 CSS로부터 (Preconnect))</td>
+<td>5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>LCP 리소스를 렌더함 (Hero image, text)</td>
+<td>중요하지 않은 (async) CSS</td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>상호작용을 위한 1P JS들</td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>ATF 이미지들 (Preconnect)</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Largest Contentful Paint (LCP)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>BTF 이미지들</td>
+<td>9</td>
+</tr>
+<tr>
+<td>5</td>
+<td>중요한 ATF 이미지를 렌더함</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>화면이 완성되어 보여짐</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>중요하지 않은 (async) CSS 를 파싱함</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>1P JS 실행하고 hydration 처리</td>
+<td>지연로딩되는 JS 코드들</td>
+<td>10&nbsp;</td>
+</tr>
+<tr>
+<td><strong>First Input Delay (FID)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 #### 참고
 
 - https://web.dev/learn-core-web-vitals/
