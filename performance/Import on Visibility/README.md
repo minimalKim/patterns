@@ -12,11 +12,47 @@
 
 1. Intersection Observer API 사용하기
 
+```js
+const io = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry) => {
+    // 가시성의 변화가 있으면 관찰 대상 전체에 대한 콜백이 실행되므로,
+    // 관찰 대상의 교차 상태가 false일(보이지 않는) 경우 실행하지 않음.
+    if (!entry.isIntersecting) {
+      // isIntersecting: 관찰 대상의 교차 상태(Boolean)
+      return;
+    }
+    // 관찰 대상의 교차 상태가 true일(보이는) 경우 실행.
+    // ...
+
+    // 위 실행을 처리하고(1회) 관찰 중지
+    observer.unobserve(entry.target);
+  });
+}, options);
+```
+
 ### 관련 React Library
 
 - [react-intersection-observer](https://www.npmjs.com/package/react-intersection-observer)
 - [react-lazyload]
 - [react-loadable-visibility]
+
+```jsx
+import { Suspense, lazy } from "react";
+import { useInView } from "react-intersection-observer";
+const Listing = lazy(() => import("./components/Listing"));
+
+function ListingCard(props) {
+  const { ref, inView } = useInView();
+
+  return (
+    <div ref={ref}>
+      <Suspense fallback={<div />}>{inView && <Listing />}</Suspense>
+    </div>
+  );
+}
+```
+
+- react-intersection-observer구성 요소가 뷰포트에 표시되는지 여부를 쉽게 감지하는 데 사용할 수 있는 React hook을 제공한다. ([예시](https://stackblitz.com/edit/node-kkt7mj?file=src%2FApp.js))
 
 ## 장점
 
