@@ -18,7 +18,7 @@ const io = new IntersectionObserver((entries, observer) => {
     // 가시성의 변화가 있으면 관찰 대상 전체에 대한 콜백이 실행되므로,
     // 관찰 대상의 교차 상태가 false일(보이지 않는) 경우 실행하지 않음.
     if (!entry.isIntersecting) {
-      // isIntersecting: 관찰 대상의 교차 상태(Boolean)
+      // isIntersecting: 관찰 대상(Target)이 루트 요소와 교차 상태로 들어가거나(true) 교차 상태에서 나가는지(false) 여부를 나타내는 값(Boolean)입니다.
       return;
     }
     // 관찰 대상의 교차 상태가 true일(보이는) 경우 실행.
